@@ -4,7 +4,9 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { join } from 'node:path';
+import path, { join } from 'node:path';
+import Handlebars from 'handlebars';
+import { readdirSync, readFileSync } from 'node:fs';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -20,10 +22,21 @@ async function bootstrap() {
   });
   app.setViewEngine({
     engine: {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
-      handlebars: require('handlebars'),
+      handlebars: Handlebars,
     },
     templates: join(__dirname, '..', 'views'),
+    layout: 'layouts/main',
+  });
+  const partialsDir = join(__dirname, '..', 'views', 'partials');
+  readdirSync(partialsDir).forEach((filename) => {
+    if (filename.endsWith('.hbs')) {
+      const name = path.parse(filename).name;
+
+      Handlebars.registerPartial(
+        name,
+        readFileSync(path.join(partialsDir, filename), 'utf-8'),
+      );
+    }
   });
   await app.listen(process.env.PORT ?? 3000);
 }

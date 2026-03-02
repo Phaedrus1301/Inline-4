@@ -9,7 +9,7 @@ How to run the project -
 - `pnpm install`
 - `pnpm run start -- -b swc` this builds tailwindcss file and then starts the nest server.
 - go to `http://localhost:3000` and there you have your kit running.
-> **NOTE** : I know Inline-4 is not the best of names, what you can do is clone the repo and then rename the folder to something generic like `MyForum` or whatever BEFORE running any pnpm steps. It should be fine that way. The name in package.json is still `starterkit`
+> **NOTE** : I know Inline-4 is not the best of names, what you can do is clone the repo inside your projectfolder like so `git clone https://github.com/Phaedrus1301/Inline-4.git .` or you can run command above and then rename folder to something generic like `MyForum` BEFORE running any pnpm steps. It should be fine that way. The name in package.json is still `starterkit`.
 
 Call me hater but man frontend is so much full of slop I feel, I wanted to escape all that and build something rather simple with backend serving most of the static stuff and having only small amounts of reactivity.
 I think if I pair this with Ajax (which I am going to try in project I will build from this kit) it should be more or less fine. Lets see how that works out.
